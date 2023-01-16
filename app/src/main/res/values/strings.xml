@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">AndroidERestaurant</string>
+    <string name="title_activity_main">MainActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string-array name="listeEntrees">
+        <item>entree1</item>
+        <item>entree2</item>
+        <item>entree3</item>
+        <item>entree4</item>
+    </string-array>
+
+    <string-array name="listePlats">
+        <item>Plat1</item>
+        <item>Plat2</item>
+        <item>Plat3</item>
+        <item>Plat4</item>
+    </string-array>
+
+    <string-array name="listeDesserts">
+        <item>dessert1</item>
+        <item>dessert2</item>
+        <item>dessert3</item>
+        <item>dessert4</item>
+    </string-array>
 </resources>
