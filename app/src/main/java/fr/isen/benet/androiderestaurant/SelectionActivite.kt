@@ -1,91 +1,120 @@
 package fr.isen.benet.androiderestaurant
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import fr.isen.benet.androiderestaurant.databinding.ActivityHomeBinding
 import fr.isen.benet.androiderestaurant.databinding.ActivitySelectionActiviteBinding
 
 
 class SelectionActivite : AppCompatActivity() {
 
-    //private val array :Array<String> = resources.getStringArray(R.array.listeEntrees)
     var categoryName = " "
     private lateinit var binding : ActivitySelectionActiviteBinding
+
+    var arrayPlats = ArrayList<Dish>();
 
     lateinit var dishes: ArrayList<Dish>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-       /* binding = ActivitySelectionActiviteBinding.inflate(layoutInflater)
+        binding = ActivitySelectionActiviteBinding.inflate(layoutInflater)
 
-        setContentView(binding.root)
+        setContentView(R.layout.activity_selection_activite);
 
         this.categoryName = intent.getStringExtra("categoryName").toString()
 
         this.title = categoryName
 
-        this.initialiserList();*/
+        arrayPlats = this.initialiserList();
 
-        val arrayEntrees : kotlin.Array<kotlin.String> = resources.getStringArray(fr.isen.benet.androiderestaurant.R.array.listeEntrees)
 
-        for(value in arrayEntrees){
-            println(value)
-        }
-        // Lookup the recyclerview in activity layout
-        val listePlat = findViewById<View>(R.id.listePlat) as RecyclerView
-        // Initialize contacts
-       // dishes= Dish.addDish(arrayEntrees)
-        // Create adapter passing in the sample user data
-        //val adapter = DishesAdapter(dishes)
-        // Attach the adapter to the recyclerview to populate items
-       // listePlat.adapter = adapter
-        // Set layout manager to position the items
-       // listePlat.layoutManager = LinearLayoutManager(this)
+
 
     }
-/*
-    fun initialiserList(){
+
+    fun initialiserList() : ArrayList<Dish>{
 
         if (this.categoryName.equals("Entrees")){
+
+
             val arrayEntrees : kotlin.Array<kotlin.String> = resources.getStringArray(fr.isen.benet.androiderestaurant.R.array.listeEntrees)
-            for( value in arrayEntrees){
-                kotlin.io.println(value)
-            }
 
             // Lookup the recyclerview in activity layout
-            val listePlat = findViewById<View>(R.id.listePlat) as RecyclerView
             // Initialize contacts
-            var dishes: ArrayList<Dish> = Dish.addDish(arrayEntrees)
-            // Create adapter passing in the sample user data
-            val adapter = DishesAdapter(dishes)
-            // Attach the adapter to the recyclerview to populate items
-            listePlat.adapter = adapter
-            // Set layout manager to position the items
-            listePlat.layoutManager = LinearLayoutManager(this)
+            dishes= Dish.addDish(arrayEntrees)
+
+            this.displayList(dishes)
+
+            return dishes
 
 
         }
 
         else if (this.categoryName.equals("Plats")){
+
+
             val arrayPlats : kotlin.Array<kotlin.String> = resources.getStringArray(fr.isen.benet.androiderestaurant.R.array.listePlats)
-            for( value in arrayPlats){
-                kotlin.io.println(value)
-            }
+
+            // Lookup the recyclerview in activity layout
+            // Initialize contacts
+            dishes= Dish.addDish(arrayPlats)
+
+            this.displayList(dishes)
+            return dishes
         }
         else{
+
+
             val arrayDesserts : kotlin.Array<kotlin.String> = resources.getStringArray(fr.isen.benet.androiderestaurant.R.array.listeDesserts)
-            for( value in arrayDesserts){
-                kotlin.io.println(value)
-            }
+
+            // Lookup the recyclerview in activity layout
+            // Initialize contacts
+            dishes= Dish.addDish(arrayDesserts)
+
+            this.displayList(dishes)
+            return dishes
+
+
         }
 
     }
-*/
+
+    fun displayList(dishes : ArrayList<Dish>){
+
+        // Create adapter passing in the sample user data
+        val adapter = DishesAdapter(dishes)
+
+        val listePlats =findViewById<View>(R.id.listePlat) as RecyclerView
+
+        // Attach the adapter to the recyclerview to populate items
+        listePlats.adapter = adapter
+        // Set layout manager to position the items
+        listePlats.layoutManager = LinearLayoutManager(this)
+
+        adapter.setOnItemClickListener(object : DishesAdapter.OnItemClickListener {
+            override fun onItemClick(itemView: View?, position: Int) {
+                val name = dishes[position].name
+                Toast.makeText(this@SelectionActivite, "$name was clicked!", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this@SelectionActivite, PlatActivity::class.java);
+
+                intent.putExtra("Name", name)
+                startActivity(intent);
+            }
+        })
+
+
+    }
+
+
 
 
 

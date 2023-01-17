@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.plats.setOnClickListener(){
-            Toast.makeText(this, "Entrees", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Plats", Toast.LENGTH_SHORT).show();
 
             val intent = Intent(this@HomeActivity, SelectionActivite::class.java);
 
@@ -37,7 +37,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.desserts.setOnClickListener(){
-            Toast.makeText(this, "Entrees", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Desserts", Toast.LENGTH_SHORT).show();
 
             val intent = Intent(this@HomeActivity, SelectionActivite::class.java);
 

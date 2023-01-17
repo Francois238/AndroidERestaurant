@@ -8,13 +8,33 @@ import androidx.recyclerview.widget.RecyclerView
 
 class DishesAdapter (private val listDish: List<Dish>) : RecyclerView.Adapter<DishesAdapter.ViewHolder>()
 {
-    // Provide a direct reference to each of the views within a data item
-    // Used to cache the views within the item layout for fast access
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        // Your holder should contain and initialize a member variable
-        // for any view that will be set as you render a row
-        val nameTextView = itemView.findViewById<TextView>(R.id.nom_plat)
+    // Define the listener interface
+    interface OnItemClickListener {
+        fun onItemClick(itemView: View?, position: Int)
+    }
 
+    // Define listener member variable
+    private lateinit var listener: OnItemClickListener
+
+    // Define the method that allows the parent activity or fragment to define the listener
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.listener = listener
+    }
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val nomPlat: TextView = itemView.findViewById(R.id.nom_plat)
+
+
+        init {
+            // Setup the click listener
+            itemView.setOnClickListener {
+                // Triggers click upwards to the adapter on click
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(itemView, position)
+                }
+            }
+        }
     }
 
     // ... constructor and member variables
@@ -31,14 +51,16 @@ class DishesAdapter (private val listDish: List<Dish>) : RecyclerView.Adapter<Di
     // Involves populating data into the item through holder
     override fun onBindViewHolder(viewHolder: DishesAdapter.ViewHolder, position: Int) {
         // Get the data model based on position
-        val dish: Dish = listDish.get(position)
+        val dish: Dish = listDish[position]
         // Set item views based on your views and data model
-        val textView = viewHolder.nameTextView
-        textView.setText(dish.name)
+        val textView = viewHolder.nomPlat
+        textView.text = dish.name
     }
 
     // Returns the total count of items in the list
     override fun getItemCount(): Int {
         return listDish.size
     }
+
+
 }

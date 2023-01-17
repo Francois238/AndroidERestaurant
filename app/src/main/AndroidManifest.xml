@@ -13,6 +13,13 @@
         android:theme="@style/Theme.AndroidERestaurant"
         tools:targetApi="31">
         <activity
+            android:name=".PlatActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".SelectionActivite"
             android:exported="false">
             <meta-data
