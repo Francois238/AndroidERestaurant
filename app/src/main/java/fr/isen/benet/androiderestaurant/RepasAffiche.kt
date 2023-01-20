@@ -5,5 +5,5 @@ class RepasAffiche (
     val categorie : String,
     val images : ArrayList<String>,
     val ingredient : ArrayList<Ingredient>,
-    val prices : Float
+    val prices : Double
 )

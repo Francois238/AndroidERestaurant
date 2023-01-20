@@ -5,6 +5,7 @@ package fr.isen.benet.androiderestaurant
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
 import com.squareup.picasso.Picasso
 
 import fr.isen.benet.androiderestaurant.databinding.ActivityPlatBinding
@@ -12,6 +13,9 @@ import fr.isen.benet.androiderestaurant.databinding.ActivityPlatBinding
 
 
 class PlatActivity : AppCompatActivity() {
+
+    var prix = 0.0
+    var quantite=1
 
     lateinit var plat : RepasAffiche
 
@@ -28,13 +32,58 @@ class PlatActivity : AppCompatActivity() {
 
         this.title ="DroidRestaurant"
 
-       // binding.nomPlat.text = categoryName
+       //this.displayImage()
 
-       this.displayImage()
+        var viewPager = findViewById<ViewPager>(R.id.viewpager)
+
+        var mViewPagerAdapter = ViewPagerAdapter(this, this.plat.images)
+        viewPager.adapter = mViewPagerAdapter
+
+
+        binding.nomPlatDetail.text = this.plat.nom
+
+        var listeIngredient = String()
+
+        for(ingredient in this.plat.ingredient){
+
+            listeIngredient += ingredient.name_fr + ", "
+        }
+
+        listeIngredient = listeIngredient.subSequence(0, listeIngredient.length-2) as String;
+
+        this.prix = this.plat.prices
+
+        binding.listeIngredients.text = listeIngredient
+
+        binding.quantite.text = this.quantite.toString()
+
+        binding.prix.text = this.prix.toString() + " €"
+
+        binding.bouttonMoins.setOnClickListener(){
+            if(this.quantite >1){
+                this.quantite -= 1
+                this.prix -= this.plat.prices
+                binding.quantite.text = this.quantite.toString()
+                binding.prix.text = this.prix.toString() + " €"
+            }
+        }
+
+        binding.bouttonPlus.setOnClickListener(){
+
+            this.quantite += 1
+            this.prix += this.plat.prices
+            binding.quantite.text = this.quantite.toString()
+            binding.prix.text = this.prix.toString() + " €"
+
+        }
+
+
+
+
 
     }
 
-    fun displayImage(){
+   /* fun displayImage(){
 
         var image = this.plat.images.filterNotNull().first()
 
@@ -49,7 +98,7 @@ class PlatActivity : AppCompatActivity() {
             .centerCrop()
             .fit()
             .into(imagePlat);
-    }
+    }*/
 
 }
 

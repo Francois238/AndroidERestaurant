@@ -65,13 +65,14 @@ class DishesAdapter (private val listDish: List<RepasAffiche>) : RecyclerView.Ad
 
         var image = dish.images.filterNotNull().first()
 
-        if (image =="" || image==null) {
-            image = R.drawable.image_accueil.toString()
+        if (image =="") {
+            image = "a"
         }
 
         val imageView = viewHolder.imagePlat
 
         Picasso.get().load(image)
+            .error(R.drawable.image_accueil)
             .centerCrop()
             .resize(150, 150)
             .into(imageView);
