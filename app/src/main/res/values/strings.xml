@@ -14,20 +14,30 @@
         <item>entree1</item>
         <item>entree2</item>
         <item>entree3</item>
-        <item>entree4</item>
     </string-array>
 
     <string-array name="listePlats">
         <item>Plat1</item>
         <item>Plat2</item>
         <item>Plat3</item>
-        <item>Plat4</item>
     </string-array>
 
     <string-array name="listeDesserts">
         <item>dessert1</item>
         <item>dessert2</item>
         <item>dessert3</item>
-        <item>dessert4</item>
     </string-array>
+
+    <string name="entree1">L entree1 est la meilleure entrée</string>
+    <string name="entree2">L entree2 est juste un salade</string>
+    <string name="entree3">L entree3 est pas mauvaise</string>
+
+    <string name="Plat1">Le plat 1 est le meilleur plat</string>
+    <string name="Plat2">Un bon gigot</string>
+    <string name="Plat3">Entrecote miam</string>
+
+    <string name="dessert1">Le dessert 1 est le meilleur dessert</string>
+    <string name="dessert2">Le dessert2 est une glace</string>
+    <string name="dessert3">L entree3 est la meilleure foret noire</string>
+
 </resources>

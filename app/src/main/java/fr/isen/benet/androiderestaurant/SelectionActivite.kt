@@ -1,16 +1,18 @@
 package fr.isen.benet.androiderestaurant
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import fr.isen.benet.androiderestaurant.databinding.ActivityHomeBinding
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
 import fr.isen.benet.androiderestaurant.databinding.ActivitySelectionActiviteBinding
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class SelectionActivite : AppCompatActivity() {
@@ -18,7 +20,7 @@ class SelectionActivite : AppCompatActivity() {
     var categoryName = " "
     private lateinit var binding : ActivitySelectionActiviteBinding
 
-    var arrayPlats = ArrayList<Dish>();
+    val tabDataApi = ArrayList<RepasAffiche>()
 
     lateinit var dishes: ArrayList<Dish>
 
@@ -29,65 +31,102 @@ class SelectionActivite : AppCompatActivity() {
 
         setContentView(R.layout.activity_selection_activite);
 
+
         this.categoryName = intent.getStringExtra("categoryName").toString()
 
         this.title = categoryName
 
-        arrayPlats = this.initialiserList();
+        this.recupererDataApi() //On va faire un appel sur l'api
+
+
+    }
+
+    fun recupererDataApi(){ //Fonction pour recuperer les donnees de l'api
+        val requestQueue = Volley.newRequestQueue(applicationContext)
+        val `object` = JSONObject()
+        try {
+            //input your API parameters
+            `object`.put("id_shop", "1")
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        var repas : RepasRecupere
+
+        val url = "http://test.api.catering.bluecodegames.com/menu"
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.POST, url, `object`,
+            { response ->
+
+                //println("String Response : $response")
+                val gson = Gson()
+
+                repas =  gson.fromJson(response.toString(), RepasRecupere::class.java)
+                println("repas : " + repas.data[0].name_fr)
+
+                this.creationListeDePlats(repas.data)  //On va trier l'objet recu par l'api
+
+
+            }
+        ) { println("Error getting response") }
+        requestQueue.add(jsonObjectRequest)
+
+
+
+    }
+
+    fun creationListeDePlats(repas : ArrayList<Repas>){
+
+        for(item in repas){  //Creation d'un objet qui contient les donnees qui nous interesses
+            for(value in item.items){
+                this.tabDataApi.add(RepasAffiche(value.name_fr, value.categ_name_fr,
+                    value.images, value.ingredients, value.prices[0].price) )
+            }
+        }
+
+        for(value in this.tabDataApi){
+
+            println("Nom " + value.nom + "categorie : " + value.categorie)
+        }
+        //Une fois notre objet cree, on va initialiser les differentes liste selon le type de plat
+        this.initialiserList();
 
 
 
 
     }
 
-    fun initialiserList() : ArrayList<Dish>{
+    fun initialiserList(){
 
-        if (this.categoryName.equals("Entrees")){
+        if (this.categoryName == "Entrees"){
+
+            val arrayDesserts = this.tabDataApi.filter { it.categorie == "Entrées"}
 
 
-            val arrayEntrees : kotlin.Array<kotlin.String> = resources.getStringArray(fr.isen.benet.androiderestaurant.R.array.listeEntrees)
-
-            // Lookup the recyclerview in activity layout
-            // Initialize contacts
-            dishes= Dish.addDish(arrayEntrees)
-
-            this.displayList(dishes)
-
-            return dishes
-
+            this.displayList(arrayDesserts)
 
         }
 
-        else if (this.categoryName.equals("Plats")){
+        else if (this.categoryName == "Plats"){
+
+            val arrayDesserts = this.tabDataApi.filter { it.categorie == "Plats"}
 
 
-            val arrayPlats : kotlin.Array<kotlin.String> = resources.getStringArray(fr.isen.benet.androiderestaurant.R.array.listePlats)
-
-            // Lookup the recyclerview in activity layout
-            // Initialize contacts
-            dishes= Dish.addDish(arrayPlats)
-
-            this.displayList(dishes)
-            return dishes
+            this.displayList(arrayDesserts)
         }
         else{
 
+            val arrayDesserts = this.tabDataApi.filter { it.categorie == "Desserts"}
 
-            val arrayDesserts : kotlin.Array<kotlin.String> = resources.getStringArray(fr.isen.benet.androiderestaurant.R.array.listeDesserts)
 
-            // Lookup the recyclerview in activity layout
-            // Initialize contacts
-            dishes= Dish.addDish(arrayDesserts)
-
-            this.displayList(dishes)
-            return dishes
+            this.displayList(arrayDesserts)
 
 
         }
 
     }
 
-    fun displayList(dishes : ArrayList<Dish>){
+    fun displayList(dishes : List<RepasAffiche>){ //Affichage de entrées, plats, desserts sur l'écran
 
         // Create adapter passing in the sample user data
         val adapter = DishesAdapter(dishes)
@@ -101,13 +140,13 @@ class SelectionActivite : AppCompatActivity() {
 
         adapter.setOnItemClickListener(object : DishesAdapter.OnItemClickListener {
             override fun onItemClick(itemView: View?, position: Int) {
-                val name = dishes[position].name
-                Toast.makeText(this@SelectionActivite, "$name was clicked!", Toast.LENGTH_SHORT).show()
+                val plat = dishes[position]
 
-                val intent = Intent(this@SelectionActivite, PlatActivity::class.java);
+                val objSent = Any()
+                val bundle = Bundle()
+                bundle.putBinder("Plat", ObjectWrapperForBinder(plat))
 
-                intent.putExtra("Name", name)
-                startActivity(intent);
+                startActivity(Intent(this@SelectionActivite, PlatActivity::class.java).putExtras(bundle))
             }
         })
 

@@ -3,10 +3,12 @@ package fr.isen.benet.androiderestaurant
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
-class DishesAdapter (private val listDish: List<Dish>) : RecyclerView.Adapter<DishesAdapter.ViewHolder>()
+class DishesAdapter (private val listDish: List<RepasAffiche>) : RecyclerView.Adapter<DishesAdapter.ViewHolder>()
 {
     // Define the listener interface
     interface OnItemClickListener {
@@ -23,6 +25,8 @@ class DishesAdapter (private val listDish: List<Dish>) : RecyclerView.Adapter<Di
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nomPlat: TextView = itemView.findViewById(R.id.nom_plat)
+        val imagePlat: ImageView = itemView.findViewById(R.id.icone_plat)
+        val prixPlat: TextView = itemView.findViewById(R.id.prix_plat)
 
 
         init {
@@ -51,10 +55,26 @@ class DishesAdapter (private val listDish: List<Dish>) : RecyclerView.Adapter<Di
     // Involves populating data into the item through holder
     override fun onBindViewHolder(viewHolder: DishesAdapter.ViewHolder, position: Int) {
         // Get the data model based on position
-        val dish: Dish = listDish[position]
+        val dish: RepasAffiche = listDish[position]
         // Set item views based on your views and data model
         val textView = viewHolder.nomPlat
-        textView.text = dish.name
+        textView.text = dish.nom
+
+        val prixView =viewHolder.prixPlat
+        prixView.text = dish.prices.toString() + "€"
+
+        var image = dish.images.filterNotNull().first()
+
+        if (image =="" || image==null) {
+            image = R.drawable.image_accueil.toString()
+        }
+
+        val imageView = viewHolder.imagePlat
+
+        Picasso.get().load(image)
+            .centerCrop()
+            .resize(150, 150)
+            .into(imageView);
     }
 
     // Returns the total count of items in the list
