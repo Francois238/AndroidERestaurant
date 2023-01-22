@@ -20,7 +20,7 @@ class ViewPagerAdapter (private val mContext: Context, private  val itemList: Ar
             itemList[position]="a"
         }
 
-        var imageview: ImageView = view.findViewById(R.id.slide_screen_item_iv)
+        val imageview: ImageView = view.findViewById(R.id.slide_screen_item_iv)
         Picasso.get().
         load(itemList[position])
             .error(R.drawable.image_accueil)

@@ -19,7 +19,7 @@ class HomeActivity : AppCompatActivity() {
         binding.entrees.setOnClickListener(){
             Toast.makeText(this, "Entrees", Toast.LENGTH_SHORT).show();
 
-            val intent = Intent(this@HomeActivity, SelectionActivite::class.java);
+            val intent = Intent(this@HomeActivity, SelectionActivity::class.java);
 
             intent.putExtra("categoryName", "Entrees")
             startActivity(intent);
@@ -29,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
         binding.plats.setOnClickListener(){
             Toast.makeText(this, "Plats", Toast.LENGTH_SHORT).show();
 
-            val intent = Intent(this@HomeActivity, SelectionActivite::class.java);
+            val intent = Intent(this@HomeActivity, SelectionActivity::class.java);
 
             intent.putExtra("categoryName", "Plats")
             startActivity(intent);
@@ -39,7 +39,7 @@ class HomeActivity : AppCompatActivity() {
         binding.desserts.setOnClickListener(){
             Toast.makeText(this, "Desserts", Toast.LENGTH_SHORT).show();
 
-            val intent = Intent(this@HomeActivity, SelectionActivite::class.java);
+            val intent = Intent(this@HomeActivity, SelectionActivity::class.java);
 
             intent.putExtra("categoryName", "Desserts")
             startActivity(intent);

@@ -11,8 +11,8 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="292dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="280dp"
+        android:layout_marginTop="44dp"
         android:src="@drawable/image_accueil"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,6 +25,7 @@
         android:layout_marginTop="60dp"
         android:text="Bienvenue chez"
         android:textColor="#FF9800"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,9 +34,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="120dp"
+        android:fontFamily="cursive"
         android:text="DroidRestaurant"
         android:textColor="#000000"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,15 +46,12 @@
         android:id="@+id/entrees"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
 
-        android:layout_marginTop="268dp"
-        android:layout_marginEnd="150dp"
+        android:layout_marginTop="256dp"
         android:backgroundTint="#FF9800"
-        android:text="Entrees"
+        android:text="@string/boutonEntree"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,29 +59,25 @@
         android:id="@+id/plats"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="364dp"
-        android:layout_marginEnd="150dp"
+        android:layout_marginTop="60dp"
         android:backgroundTint="#FF9800"
-        android:text="Plats"
+        android:text="@string/boutonPlats"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.421"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/entrees" />
 
     <Button
         android:id="@+id/desserts"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="456dp"
-        android:layout_marginEnd="150dp"
+        android:layout_marginTop="60dp"
         android:backgroundTint="#FF9800"
-        android:text="Desserts"
+        android:text="@string/boutonDesserts"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/plats" />
 </androidx.constraintlayout.widget.ConstraintLayout>
