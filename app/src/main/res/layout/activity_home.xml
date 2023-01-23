@@ -47,7 +47,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="256dp"
+        android:layout_marginTop="300dp"
         android:backgroundTint="#FF9800"
         android:text="@string/boutonEntree"
         android:textColor="#FFFFFF"

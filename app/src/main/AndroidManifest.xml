@@ -16,6 +16,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".CommandeActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".DetailActivity"
             android:exported="false">
             <meta-data
@@ -28,8 +35,8 @@
             android:theme="@style/Theme.AndroidERestaurant.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
-                android:value=""
-                android:theme="@style/Theme.AndroidERestaurant.NoActionBar"/>
+                android:theme="@style/Theme.AndroidERestaurant.NoActionBar"
+                android:value="" />
         </activity>
         <activity
             android:name=".SelectionActivity"
