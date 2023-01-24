@@ -17,10 +17,10 @@ import org.json.JSONObject
 
 class SelectionActivity : AppCompatActivity() {
 
-    var categoryName = " "
+    private var categoryName = " "
     private lateinit var binding : ActivitySelectionActiviteBinding
 
-    val tabDataApi = ArrayList<RepasAffiche>()
+    private val tabDataApi = ArrayList<RepasAffiche>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class SelectionActivity : AppCompatActivity() {
 
         binding = ActivitySelectionActiviteBinding.inflate(layoutInflater)
 
-        setContentView(R.layout.activity_selection_activite);
+        setContentView(R.layout.activity_selection_activite)
 
 
         this.categoryName = intent.getStringExtra("categoryName").toString()
@@ -40,7 +40,7 @@ class SelectionActivity : AppCompatActivity() {
 
     }
 
-    fun recupererDataApi(){ //Fonction pour recuperer les donnees de l'api
+    private fun recupererDataApi(){ //Fonction pour recuperer les donnees de l'api
         val requestQueue = Volley.newRequestQueue(applicationContext)
         val `object` = JSONObject()
         try {
@@ -74,7 +74,7 @@ class SelectionActivity : AppCompatActivity() {
 
     }
 
-    fun creationListeDePlats(repas : ArrayList<Repas>){
+    private fun creationListeDePlats(repas : ArrayList<Repas>){
 
         for(item in repas){  //Creation d'un objet qui contient les donnees qui nous interesses
             for(value in item.items){
@@ -88,14 +88,12 @@ class SelectionActivity : AppCompatActivity() {
             println("Nom " + value.nom + "categorie : " + value.categorie)
         }
         //Une fois notre objet cree, on va initialiser les differentes liste selon le type de plat
-        this.initialiserList();
-
-
+        this.initialiserList()
 
 
     }
 
-    fun initialiserList(){
+    private fun initialiserList(){
 
         if (this.categoryName == "Entrees"){
 
@@ -125,7 +123,7 @@ class SelectionActivity : AppCompatActivity() {
 
     }
 
-    fun displayList(dishes : List<RepasAffiche>){ //Affichage de entrées, plats, desserts sur l'écran
+    private fun displayList(dishes : List<RepasAffiche>){ //Affichage de entrées, plats, desserts sur l'écran
 
         // Create adapter passing in the sample user data
         val adapter = RepasAdapter(dishes)
@@ -141,7 +139,6 @@ class SelectionActivity : AppCompatActivity() {
             override fun onItemClick(itemView: View?, position: Int) {
                 val plat = dishes[position]
 
-                val objSent = Any()
                 val bundle = Bundle()
                 bundle.putBinder("Plat", ObjectWrapperForBinder(plat))
 

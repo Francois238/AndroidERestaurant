@@ -63,7 +63,7 @@ class RepasAdapter (private val listDish: List<RepasAffiche>) : RecyclerView.Ada
         val prixView =viewHolder.prixPlat
         prixView.text = dish.prices.toString() + "€"
 
-        var image = dish.images.filterNotNull().first()
+        var image = dish.images.toList().first()
 
         if (image =="") {
             image = "a"
@@ -75,7 +75,7 @@ class RepasAdapter (private val listDish: List<RepasAffiche>) : RecyclerView.Ada
             .error(R.drawable.image_accueil)
             .centerCrop()
             .fit()
-            .into(imageView);
+            .into(imageView)
     }
 
     // Returns the total count of items in the list

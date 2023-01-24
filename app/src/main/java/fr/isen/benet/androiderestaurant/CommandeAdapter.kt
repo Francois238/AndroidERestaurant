@@ -79,7 +79,7 @@ class CommandeAdapter (private val listCommade: List<PlatEnregistre>) : Recycler
             .error(R.drawable.image_accueil)
             .centerCrop()
             .fit()
-            .into(imageView);
+            .into(imageView)
 
 
     }

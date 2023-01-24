@@ -16,33 +16,33 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.entrees.setOnClickListener(){
-            Toast.makeText(this, "Entrees", Toast.LENGTH_SHORT).show();
+        binding.entrees.setOnClickListener {
+            Toast.makeText(this, "Entrees", Toast.LENGTH_SHORT).show()
 
-            val intent = Intent(this@HomeActivity, SelectionActivity::class.java);
+            val intent = Intent(this@HomeActivity, SelectionActivity::class.java)
 
             intent.putExtra("categoryName", "Entrees")
-            startActivity(intent);
+            startActivity(intent)
 
         }
 
-        binding.plats.setOnClickListener(){
-            Toast.makeText(this, "Plats", Toast.LENGTH_SHORT).show();
+        binding.plats.setOnClickListener {
+            Toast.makeText(this, "Plats", Toast.LENGTH_SHORT).show()
 
-            val intent = Intent(this@HomeActivity, SelectionActivity::class.java);
+            val intent = Intent(this@HomeActivity, SelectionActivity::class.java)
 
             intent.putExtra("categoryName", "Plats")
-            startActivity(intent);
+            startActivity(intent)
 
         }
 
-        binding.desserts.setOnClickListener(){
-            Toast.makeText(this, "Desserts", Toast.LENGTH_SHORT).show();
+        binding.desserts.setOnClickListener {
+            Toast.makeText(this, "Desserts", Toast.LENGTH_SHORT).show()
 
-            val intent = Intent(this@HomeActivity, SelectionActivity::class.java);
+            val intent = Intent(this@HomeActivity, SelectionActivity::class.java)
 
             intent.putExtra("categoryName", "Desserts")
-            startActivity(intent);
+            startActivity(intent)
 
         }
 

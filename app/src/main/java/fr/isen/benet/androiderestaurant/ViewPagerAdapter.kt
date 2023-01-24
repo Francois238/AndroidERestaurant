@@ -26,7 +26,7 @@ class ViewPagerAdapter (private val mContext: Context, private  val itemList: Ar
             .error(R.drawable.image_accueil)
             .centerCrop()
             .fit()
-            .into(imageview);
+            .into(imageview)
 
         container.addView(view, position)
         return view

@@ -4,7 +4,6 @@ package fr.isen.benet.androiderestaurant
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -20,12 +19,12 @@ class PlatActivity : AppCompatActivity() {
 
     var prix = 0.0
     var quantite=1
-    var nbEnregistre=0
+    private var nbEnregistre=0
     var  tableauPlatEnregistre =ListPlatEnregistre(ArrayList<PlatEnregistre>())
     private val SHARED_PREF_USER_INFO = "SHARED_PREF_USER_INFO"
     private val SHARED_PREF_USER_INFO_NAME = "QUANTITE"
 
-    lateinit var plat : RepasAffiche
+    private lateinit var plat : RepasAffiche
 
     private lateinit var binding : ActivityPlatBinding
 
@@ -65,7 +64,7 @@ class PlatActivity : AppCompatActivity() {
 
             val gson = Gson()
 
-            val tabEnregistrement =  gson.fromJson(jsonString.toString(),ListPlatEnregistre::class.java)
+            val tabEnregistrement =  gson.fromJson(jsonString,ListPlatEnregistre::class.java)
 
             this.tableauPlatEnregistre = tabEnregistrement
             for(value in tableauPlatEnregistre.data){
@@ -80,7 +79,7 @@ class PlatActivity : AppCompatActivity() {
             null
         )
 
-        println("Voici nbEnregistrement : " + nbEnregistrementsPreference)
+        println("Voici nbEnregistrement : $nbEnregistrementsPreference")
 
         if(nbEnregistrementsPreference == null){
             this.nbEnregistre=0
@@ -93,9 +92,9 @@ class PlatActivity : AppCompatActivity() {
 
 
 
-        var viewPager = findViewById<ViewPager>(R.id.viewpager)
+        val viewPager = findViewById<ViewPager>(R.id.viewpager)
 
-        var mViewPagerAdapter = ViewPagerAdapter(this, this.plat.images)
+        val mViewPagerAdapter = ViewPagerAdapter(this, this.plat.images)
         viewPager.adapter = mViewPagerAdapter
 
 
@@ -108,7 +107,7 @@ class PlatActivity : AppCompatActivity() {
             listeIngredient += ingredient.name_fr + ", "
         }
 
-        listeIngredient = listeIngredient.subSequence(0, listeIngredient.length-2) as String;
+        listeIngredient = listeIngredient.subSequence(0, listeIngredient.length-2) as String
 
         this.prix = this.plat.prices
 
@@ -118,7 +117,7 @@ class PlatActivity : AppCompatActivity() {
 
         binding.ajouterPanier.text = this.prix.toString() + " €"
 
-        binding.bouttonMoins.setOnClickListener(){
+        binding.bouttonMoins.setOnClickListener {
             if(this.quantite >1){
                 this.quantite -= 1
                 this.prix -= this.plat.prices
@@ -127,7 +126,7 @@ class PlatActivity : AppCompatActivity() {
             }
         }
 
-        binding.bouttonPlus.setOnClickListener(){
+        binding.bouttonPlus.setOnClickListener {
 
             this.quantite += 1
             this.prix += this.plat.prices
@@ -137,7 +136,7 @@ class PlatActivity : AppCompatActivity() {
 
         }
 
-        binding.ajouterPanier.setOnClickListener(){
+        binding.ajouterPanier.setOnClickListener {
 
             val platEnregistre = PlatEnregistre(this.plat.nom, this.prix,this.quantite, this.plat.images[0])
 
@@ -145,9 +144,9 @@ class PlatActivity : AppCompatActivity() {
 
             if (!file.exists()) {
 
-                file.createNewFile();
+                file.createNewFile()
 
-                this.tableauPlatEnregistre.data = ArrayList<PlatEnregistre>()
+                this.tableauPlatEnregistre.data = ArrayList()
             }
 
             //this.tableauPlatEnregistre.data = ArrayList<PlatEnregistre>()
@@ -160,19 +159,19 @@ class PlatActivity : AppCompatActivity() {
             val gson = Gson()
             val jsonPlatEnregistre = gson.toJson(this.tableauPlatEnregistre)
 
-            println("Le json : " + jsonPlatEnregistre)
+            println("Le json : $jsonPlatEnregistre")
             println("Il y a " + jsonPlatEnregistre.length + " plats enregistre")
 
             val outputStream = FileOutputStream(file)
-            outputStream.write(jsonPlatEnregistre.toByteArray());
+            outputStream.write(jsonPlatEnregistre.toByteArray())
 
-            outputStream.close();
+            outputStream.close()
 
 
             getSharedPreferences(SHARED_PREF_USER_INFO, MODE_PRIVATE)
                 .edit()
                 .putString(SHARED_PREF_USER_INFO_NAME,this.nbEnregistre.toString() )
-                .apply();
+                .apply()
             binding.nbEnregistrement.text =this.nbEnregistre.toString()
 
             this.displayAlert()
@@ -180,19 +179,19 @@ class PlatActivity : AppCompatActivity() {
 
         }
 
-        binding.panier.setOnClickListener(){
+        binding.panier.setOnClickListener {
 
 
-            val intent = Intent(this@PlatActivity, CommandeActivity::class.java);
+            val intent = Intent(this@PlatActivity, CommandeActivity::class.java)
 
-            startActivity(intent);
+            startActivity(intent)
 
         }
 
 
     }
 
-    fun displayAlert(){
+    private fun displayAlert(){
         // Create the object of AlertDialog Builder class
         val builder = AlertDialog.Builder(this)
 
