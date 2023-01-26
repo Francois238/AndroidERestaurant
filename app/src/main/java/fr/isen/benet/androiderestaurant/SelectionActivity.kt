@@ -10,7 +10,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
-import fr.isen.benet.androiderestaurant.databinding.ActivitySelectionActiviteBinding
+import fr.isen.benet.androiderestaurant.databinding.ActivitySelectionBinding
 import fr.isen.benet.androiderestaurant.model.Repas
 import fr.isen.benet.androiderestaurant.model.RepasAffiche
 import fr.isen.benet.androiderestaurant.model.RepasRecupere
@@ -21,7 +21,7 @@ import org.json.JSONObject
 class SelectionActivity : AppCompatActivity() {
 
     private var categoryName = " "
-    private lateinit var binding : ActivitySelectionActiviteBinding
+    private lateinit var binding : ActivitySelectionBinding
 
     private val tabDataApi = ArrayList<RepasAffiche>()
 
@@ -29,9 +29,9 @@ class SelectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivitySelectionActiviteBinding.inflate(layoutInflater)
+        binding = ActivitySelectionBinding.inflate(layoutInflater)
 
-        setContentView(R.layout.activity_selection_activite)
+        setContentView(R.layout.activity_selection)
 
 
         this.categoryName = intent.getStringExtra("categoryName").toString()
