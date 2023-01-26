@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import fr.isen.benet.androiderestaurant.model.RepasAffiche
 
 class RepasAdapter (private val listDish: List<RepasAffiche>) : RecyclerView.Adapter<RepasAdapter.ViewHolder>()
 {

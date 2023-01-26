@@ -1,4 +1,7 @@
-package fr.isen.benet.androiderestaurant
+package fr.isen.benet.androiderestaurant.model
+
+import fr.isen.benet.androiderestaurant.model.Ingredient
+import fr.isen.benet.androiderestaurant.model.Prix
 
 class  RepasDetail(
     val id : Int,

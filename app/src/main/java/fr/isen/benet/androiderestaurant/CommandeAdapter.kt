@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import fr.isen.benet.androiderestaurant.model.PlatEnregistre
 
 class CommandeAdapter (private val listCommade: List<PlatEnregistre>) : RecyclerView.Adapter<CommandeAdapter.ViewHolder>()
 {
@@ -28,6 +29,7 @@ class CommandeAdapter (private val listCommade: List<PlatEnregistre>) : Recycler
         val imagePlat: ImageView = itemView.findViewById(R.id.icone_plat_commande)
         val prixPlat: TextView = itemView.findViewById(R.id.prix_plat_commande)
         val quantitePlat: TextView = itemView.findViewById(R.id.quantite_plat_commande)
+        val imageSupprimer: ImageView = itemView.findViewById(R.id.icone_supprimer)
 
 
         init {
@@ -69,17 +71,18 @@ class CommandeAdapter (private val listCommade: List<PlatEnregistre>) : Recycler
 
         val imageView = viewHolder.imagePlat
 
-        var image = commande.image
+        var imagePlat = commande.image
 
-        if (image =="") {
-            image = "a"
+        if (imagePlat =="") {
+            imagePlat = "a"
         }
 
-        Picasso.get().load(image)
+        Picasso.get().load(imagePlat)
             .error(R.drawable.image_accueil)
             .centerCrop()
             .fit()
             .into(imageView)
+
 
 
     }

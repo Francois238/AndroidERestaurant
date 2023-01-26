@@ -1,4 +1,4 @@
-package fr.isen.benet.androiderestaurant
+package fr.isen.benet.androiderestaurant.model
 
 class PlatEnregistre(
     val nom : String,

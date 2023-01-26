@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import com.squareup.picasso.Picasso
 
-class ViewPagerAdapter (private val mContext: Context, private  val itemList: ArrayList<String>) : PagerAdapter() {
+class CarrouselAdapter (private val mContext: Context, private  val itemList: ArrayList<String>) : PagerAdapter() {
     private var layoutInflater: LayoutInflater? = null
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {

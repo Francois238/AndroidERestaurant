@@ -11,6 +11,9 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import fr.isen.benet.androiderestaurant.databinding.ActivitySelectionActiviteBinding
+import fr.isen.benet.androiderestaurant.model.Repas
+import fr.isen.benet.androiderestaurant.model.RepasAffiche
+import fr.isen.benet.androiderestaurant.model.RepasRecupere
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -78,7 +81,8 @@ class SelectionActivity : AppCompatActivity() {
 
         for(item in repas){  //Creation d'un objet qui contient les donnees qui nous interesses
             for(value in item.items){
-                this.tabDataApi.add(RepasAffiche(value.name_fr, value.categ_name_fr,
+                this.tabDataApi.add(
+                    RepasAffiche(value.name_fr, value.categ_name_fr,
                     value.images, value.ingredients, value.prices[0].price) )
             }
         }

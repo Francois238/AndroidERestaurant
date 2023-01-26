@@ -10,6 +10,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
 import com.google.gson.Gson
 import fr.isen.benet.androiderestaurant.databinding.ActivityPlatBinding
+import fr.isen.benet.androiderestaurant.model.ListPlatEnregistre
+import fr.isen.benet.androiderestaurant.model.PlatEnregistre
+import fr.isen.benet.androiderestaurant.model.RepasAffiche
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -20,7 +23,7 @@ class PlatActivity : AppCompatActivity() {
     var prix = 0.0
     var quantite=1
     private var nbEnregistre=0
-    var  tableauPlatEnregistre =ListPlatEnregistre(ArrayList<PlatEnregistre>())
+    var  tableauPlatEnregistre = ListPlatEnregistre(ArrayList<PlatEnregistre>())
     private val SHARED_PREF_USER_INFO = "SHARED_PREF_USER_INFO"
     private val SHARED_PREF_USER_INFO_NAME = "QUANTITE"
 
@@ -64,7 +67,7 @@ class PlatActivity : AppCompatActivity() {
 
             val gson = Gson()
 
-            val tabEnregistrement =  gson.fromJson(jsonString,ListPlatEnregistre::class.java)
+            val tabEnregistrement =  gson.fromJson(jsonString, ListPlatEnregistre::class.java)
 
             this.tableauPlatEnregistre = tabEnregistrement
             for(value in tableauPlatEnregistre.data){
@@ -94,8 +97,8 @@ class PlatActivity : AppCompatActivity() {
 
         val viewPager = findViewById<ViewPager>(R.id.viewpager)
 
-        val mViewPagerAdapter = ViewPagerAdapter(this, this.plat.images)
-        viewPager.adapter = mViewPagerAdapter
+        val mCarrouselAdapter = CarrouselAdapter(this, this.plat.images)
+        viewPager.adapter = mCarrouselAdapter
 
 
         binding.nomPlatDetail.text = this.plat.nom
