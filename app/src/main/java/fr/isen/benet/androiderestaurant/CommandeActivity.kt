@@ -73,6 +73,8 @@ class CommandeActivity : AppCompatActivity() {
 
                         this.tableauPlatEnregistre.clear()
 
+                        this.setPrice()
+
                         this.displayList()
 
                     } else {
@@ -141,12 +143,13 @@ class CommandeActivity : AppCompatActivity() {
 
     //fonction pour supprimer un element du panier en cliquant sur le bouton supprimer
     private fun deleteItem(position: Int) {
-            this.tableauPlatEnregistre.removeAt(position)
-            this.displayList()
-            this.updatePreferences(this.tableauPlatEnregistre.size)
-            this.modifyFile()
-            this.setPrice()
-        }
+        this.tableauPlatEnregistre.removeAt(position)
+        this.setPrice()
+        this.displayList()
+        this.updatePreferences(this.tableauPlatEnregistre.size)
+        this.modifyFile()
+
+    }
 
     //fonction pour mettre a jour les preferences utilisateur
 

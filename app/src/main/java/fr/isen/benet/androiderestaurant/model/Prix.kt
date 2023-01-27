@@ -1,6 +1,6 @@
 package fr.isen.benet.androiderestaurant.model
 
-class Prix (
+data class Prix (
     val id : Int,
     val id_pizza : Int,
     val id_size : Int,

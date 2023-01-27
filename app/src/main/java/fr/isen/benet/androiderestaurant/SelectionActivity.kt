@@ -99,30 +99,31 @@ class SelectionActivity : AppCompatActivity() {
 
     private fun initialiserList(){
 
-        if (this.categoryName == "Entrees"){
+        when (this.categoryName) {
+            "Entrees" -> {
 
-            val arrayDesserts = this.tabDataApi.filter { it.categorie == "Entrées"}
-
-
-            this.displayList(arrayDesserts)
-
-        }
-
-        else if (this.categoryName == "Plats"){
-
-            val arrayDesserts = this.tabDataApi.filter { it.categorie == "Plats"}
+                val arrayDesserts = this.tabDataApi.filter { it.categorie == "Entrées"}
 
 
-            this.displayList(arrayDesserts)
-        }
-        else{
+                this.displayList(arrayDesserts)
 
-            val arrayDesserts = this.tabDataApi.filter { it.categorie == "Desserts"}
+            }
+            "Plats" -> {
 
-
-            this.displayList(arrayDesserts)
+                val arrayDesserts = this.tabDataApi.filter { it.categorie == "Plats"}
 
 
+                this.displayList(arrayDesserts)
+            }
+            else -> {
+
+                val arrayDesserts = this.tabDataApi.filter { it.categorie == "Desserts"}
+
+
+                this.displayList(arrayDesserts)
+
+
+            }
         }
 
     }

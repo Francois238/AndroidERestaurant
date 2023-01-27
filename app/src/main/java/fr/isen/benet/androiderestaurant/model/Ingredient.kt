@@ -1,6 +1,6 @@
 package fr.isen.benet.androiderestaurant.model
 
-class Ingredient (
+data class Ingredient (
     val id : Int,
     val id_shop : Int,
     val name_fr : String,
