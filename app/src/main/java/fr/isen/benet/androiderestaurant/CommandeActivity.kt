@@ -174,8 +174,8 @@ class CommandeActivity : AppCompatActivity() {
 
     private fun setPrice(){
         var price = 0.0
-        for (plat in this.tableauPlatEnregistre){
-            price += plat.prix * plat.quantite
+        for (item in this.tableauPlatEnregistre){
+            price += item.prix
         }
         binding.commander.text = "Commander " + price.toString() + "€"
     }
