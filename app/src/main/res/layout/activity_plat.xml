@@ -37,31 +37,37 @@
                 app:title="DroidERestaurant"
                 app:titleTextColor="#ffff" />
 
-            <!-- Right most TextView -->
-            <TextView
-                android:id="@+id/nb_enregistrement"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="10dp"
-                android:background="#000000"
-                android:text="0"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:textColor="#ffff"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
+
+            <ImageView
+                android:id="@+id/pastille"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/pastille"
                 app:layout_constraintEnd_toEndOf="@+id/toolbar"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Right most ImageView -->
+            <TextView
+                android:id="@+id/nb_enregistrement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/pastille"
+                app:layout_constraintEnd_toEndOf="@+id/pastille"
+                app:layout_constraintStart_toStartOf="@+id/pastille"
+                app:layout_constraintTop_toTopOf="@+id/pastille" />
+
             <ImageView
                 android:id="@+id/panier"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="9dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="48dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/nb_enregistrement"
+                app:layout_constraintEnd_toEndOf="@+id/toolbar"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/cart" />
 

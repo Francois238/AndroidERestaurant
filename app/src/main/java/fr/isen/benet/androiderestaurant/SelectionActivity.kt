@@ -14,6 +14,8 @@ import fr.isen.benet.androiderestaurant.databinding.ActivitySelectionBinding
 import fr.isen.benet.androiderestaurant.model.Repas
 import fr.isen.benet.androiderestaurant.model.RepasAffiche
 import fr.isen.benet.androiderestaurant.model.RepasRecupere
+import fr.isen.benet.androiderestaurant.tool.ObjectWrapperForBinder
+import fr.isen.benet.androiderestaurant.tool.RepasAdapter
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -47,7 +49,7 @@ class SelectionActivity : AppCompatActivity() {
         val requestQueue = Volley.newRequestQueue(applicationContext)
         val `object` = JSONObject()
         try {
-            //input your API parameters
+
             `object`.put("id_shop", "1")
         } catch (e: JSONException) {
             e.printStackTrace()
@@ -60,7 +62,6 @@ class SelectionActivity : AppCompatActivity() {
             Request.Method.POST, url, `object`,
             { response ->
 
-                //println("String Response : $response")
                 val gson = Gson()
 
                 repas =  gson.fromJson(response.toString(), RepasRecupere::class.java)
@@ -100,7 +101,7 @@ class SelectionActivity : AppCompatActivity() {
     private fun initialiserList(){
 
         when (this.categoryName) {
-            "Entrees" -> {
+            getString(R.string.entree) -> {
 
                 val arrayDesserts = this.tabDataApi.filter { it.categorie == "Entrées"}
 
@@ -108,7 +109,7 @@ class SelectionActivity : AppCompatActivity() {
                 this.displayList(arrayDesserts)
 
             }
-            "Plats" -> {
+            getString(R.string.plat) -> {
 
                 val arrayDesserts = this.tabDataApi.filter { it.categorie == "Plats"}
 
@@ -130,14 +131,14 @@ class SelectionActivity : AppCompatActivity() {
 
     private fun displayList(dishes : List<RepasAffiche>){ //Affichage de entrées, plats, desserts sur l'écran
 
-        // Create adapter passing in the sample user data
+        // creation de l'adapter
         val adapter = RepasAdapter(dishes)
 
         val listePlats =findViewById<View>(R.id.listePlat) as RecyclerView
 
-        // Attach the adapter to the recyclerview to populate items
+        // Faire le lien entre l'adapter et le recycler view
         listePlats.adapter = adapter
-        // Set layout manager to position the items
+        // Affichage de la liste
         listePlats.layoutManager = LinearLayoutManager(this)
 
         adapter.setOnItemClickListener(object : RepasAdapter.OnItemClickListener {
@@ -147,7 +148,7 @@ class SelectionActivity : AppCompatActivity() {
                 val bundle = Bundle()
                 bundle.putBinder("Plat", ObjectWrapperForBinder(plat))
 
-                startActivity(Intent(this@SelectionActivity, PlatActivity::class.java).putExtras(bundle))
+                startActivity(Intent(this@SelectionActivity, PlatActivity::class.java).putExtras(bundle)) //on passe l objet a la nouvelle activite
             }
         })
 

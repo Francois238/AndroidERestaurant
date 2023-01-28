@@ -21,7 +21,7 @@ class HomeActivity : AppCompatActivity() {
 
             val intent = Intent(this@HomeActivity, SelectionActivity::class.java)
 
-            intent.putExtra("categoryName", "Entrees")
+            intent.putExtra("categoryName",  getString(R.string.entree) )
             startActivity(intent)
 
         }
@@ -31,7 +31,7 @@ class HomeActivity : AppCompatActivity() {
 
             val intent = Intent(this@HomeActivity, SelectionActivity::class.java)
 
-            intent.putExtra("categoryName", "Plats")
+            intent.putExtra("categoryName",  getString(R.string.plat))
             startActivity(intent)
 
         }
@@ -41,7 +41,7 @@ class HomeActivity : AppCompatActivity() {
 
             val intent = Intent(this@HomeActivity, SelectionActivity::class.java)
 
-            intent.putExtra("categoryName", "Desserts")
+            intent.putExtra("categoryName",  getString(R.string.dessert))
             startActivity(intent)
 
         }

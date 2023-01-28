@@ -1,6 +1,7 @@
 package fr.isen.benet.androiderestaurant
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -13,6 +14,8 @@ import fr.isen.benet.androiderestaurant.databinding.ActivityPlatBinding
 import fr.isen.benet.androiderestaurant.model.ListPlatEnregistre
 import fr.isen.benet.androiderestaurant.model.PlatEnregistre
 import fr.isen.benet.androiderestaurant.model.RepasAffiche
+import fr.isen.benet.androiderestaurant.tool.CarrouselAdapter
+import fr.isen.benet.androiderestaurant.tool.ObjectWrapperForBinder
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -20,10 +23,10 @@ import java.io.FileOutputStream
 
 class PlatActivity : AppCompatActivity() {
 
-    var prix = 0.0
-    var quantite=1
+    private var prix = 0.0
+    private var quantite=1
     private var nbEnregistre=0
-    var  tableauPlatEnregistre = ListPlatEnregistre(ArrayList<PlatEnregistre>())
+    private var  tableauPlatEnregistre = ListPlatEnregistre(ArrayList())
     private val SHARED_PREF_USER_INFO = "SHARED_PREF_USER_INFO"
     private val SHARED_PREF_USER_INFO_NAME = "QUANTITE"
 
@@ -32,6 +35,7 @@ class PlatActivity : AppCompatActivity() {
     private lateinit var binding : ActivityPlatBinding
 
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,13 +49,7 @@ class PlatActivity : AppCompatActivity() {
 
        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
 
-        // using toolbar as ActionBar
-        setSupportActionBar(toolbar)
-
-      //  this.title = "DroidRestaurant"
-
-      // supportActionBar?.setDisplayShowHomeEnabled(true);
-      //  supportActionBar?.setIcon(R.drawable.image_accueil)
+        setSupportActionBar(toolbar) //affichage de la toolbar personnalisée
 
         val file = File(filesDir, "plats_commandes.json")
 
@@ -60,29 +58,24 @@ class PlatActivity : AppCompatActivity() {
             println("file exist")
             val inputStream = FileInputStream(file)
 
-            val buffer = ByteArray(inputStream.available())
+            val buffer = ByteArray(inputStream.available()) //lecture du fichier
             inputStream.read(buffer)
 
-            val jsonString = String(buffer)
+            val jsonString = String(buffer) //On a le json sous forme de string
 
             val gson = Gson()
 
             val tabEnregistrement =  gson.fromJson(jsonString, ListPlatEnregistre::class.java)
 
             this.tableauPlatEnregistre = tabEnregistrement
-            for(value in tableauPlatEnregistre.data){
-                println("Nom : " + value.nom + "prix : "+value.prix  + "quantite : " + value.quantite)
-
-            }
 
         }
 
-        val nbEnregistrementsPreference = getSharedPreferences(SHARED_PREF_USER_INFO, MODE_PRIVATE).getString(
+        val nbEnregistrementsPreference = getSharedPreferences(SHARED_PREF_USER_INFO, MODE_PRIVATE).getString( //on recupere le nombre d'enregistrement dans les preferences
             SHARED_PREF_USER_INFO_NAME,
             null
         )
 
-        println("Voici nbEnregistrement : $nbEnregistrementsPreference")
 
         if(nbEnregistrementsPreference == null){
             this.nbEnregistre=0
@@ -152,8 +145,6 @@ class PlatActivity : AppCompatActivity() {
                 this.tableauPlatEnregistre.data = ArrayList()
             }
 
-            //this.tableauPlatEnregistre.data = ArrayList<PlatEnregistre>()
-
             this.tableauPlatEnregistre.data.add(platEnregistre)
 
             this.nbEnregistre = this.tableauPlatEnregistre.data.size
@@ -162,10 +153,7 @@ class PlatActivity : AppCompatActivity() {
             val gson = Gson()
             val jsonPlatEnregistre = gson.toJson(this.tableauPlatEnregistre)
 
-            println("Le json : $jsonPlatEnregistre")
-            println("Il y a " + jsonPlatEnregistre.length + " plats enregistre")
-
-            val outputStream = FileOutputStream(file)
+            val outputStream = FileOutputStream(file) //enregistrement des commandes dans le fichier
             outputStream.write(jsonPlatEnregistre.toByteArray())
 
             outputStream.close()

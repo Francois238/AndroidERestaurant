@@ -1,5 +1,6 @@
 package fr.isen.benet.androiderestaurant
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -10,6 +11,7 @@ import com.google.gson.Gson
 import fr.isen.benet.androiderestaurant.databinding.ActivityCommandeBinding
 import fr.isen.benet.androiderestaurant.model.ListPlatEnregistre
 import fr.isen.benet.androiderestaurant.model.PlatEnregistre
+import fr.isen.benet.androiderestaurant.tool.CommandeAdapter
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -31,7 +33,8 @@ class CommandeActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.commander.text = "Commander "
+
+        binding.commander.text =  getString(R.string.commander)
 
 
         val file = File(filesDir, "plats_commandes.json")
@@ -51,10 +54,6 @@ class CommandeActivity : AppCompatActivity() {
             val tabEnregistrement =  gson.fromJson(jsonString, ListPlatEnregistre::class.java)
 
             this.tableauPlatEnregistre = tabEnregistrement.data
-            for(value in tableauPlatEnregistre){
-                println("Nom : " + value.nom + "prix : "+value.prix  + "quantite : " + value.quantite)
-
-            }
 
             this.setPrice()
 
@@ -67,7 +66,8 @@ class CommandeActivity : AppCompatActivity() {
                 if (file.exists()) {
                     val result = file.delete()
                     if (result) {
-                        this.displayAlert(true)
+
+                        this.displayAlert(this.tableauPlatEnregistre.size > 0)
 
                         this.updatePreferences(0)
 
@@ -115,7 +115,7 @@ class CommandeActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
 
 
-        val message = if(flag)   "Votre commande a été enregistrée" else "Vous n'avez aucun article dans votre panier"
+        val message = if(flag)    getString(R.string.enregistrement) else  getString(R.string.aucun_enregistrement)
 
 
         // Set the message show for the Alert time
@@ -175,12 +175,13 @@ class CommandeActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setPrice(){
         var price = 0.0
         for (item in this.tableauPlatEnregistre){
             price += item.prix
         }
-        binding.commander.text = "Commander " + price.toString() + "€"
+        binding.commander.text =  getString(R.string.commander) + " "+ price.toString() + "€"
     }
 
 
