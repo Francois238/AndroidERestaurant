@@ -8,14 +8,14 @@
     android:paddingBottom="10dp">
 
     <ImageView
-        android:id="@+id/icone_plat"
+        android:id="@+id/iconePlat"
         android:layout_width="300px"
         android:layout_height="300px"
         android:layout_marginStart="0dp"
         android:padding="0dp" />
 
     <TextView
-        android:id="@+id/nom_plat"
+        android:id="@+id/nomPlat"
         android:layout_width="200dp"
         android:layout_height="300px"
         android:layout_marginStart="10dp"
@@ -26,7 +26,7 @@
         tools:ignore="RtlCompat" />
 
     <TextView
-        android:id="@+id/prix_plat"
+        android:id="@+id/prixPlat"
         android:layout_width="51dp"
         android:layout_height="300px"
         android:layout_marginStart="0dp"
