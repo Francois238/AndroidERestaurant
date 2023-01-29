@@ -14,13 +14,13 @@ class CarrouselAdapter (private val mContext: Context, private  val itemList: Ar
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         layoutInflater = LayoutInflater.from(mContext)
-        val view = layoutInflater!!.inflate(R.layout.custom_view, container, false)
+        val view = layoutInflater!!.inflate(R.layout.item_caroussel, container, false)
 
         if(itemList[position] == ""){
             itemList[position]="a"
         }
 
-        val imageview: ImageView = view.findViewById(R.id.slide_screen_item_iv)
+        val imageview: ImageView = view.findViewById(R.id.imageCarrousel)
         Picasso.get().
         load(itemList[position])
             .error(R.drawable.image_accueil)
