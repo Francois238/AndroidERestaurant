@@ -11,13 +11,16 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import fr.isen.benet.androiderestaurant.databinding.ActivitySelectionBinding
-import fr.isen.benet.androiderestaurant.model.Repas
-import fr.isen.benet.androiderestaurant.model.RepasAffiche
-import fr.isen.benet.androiderestaurant.model.RepasRecupere
+import fr.isen.benet.androiderestaurant.model.*
 import fr.isen.benet.androiderestaurant.tool.ObjectWrapperForBinder
 import fr.isen.benet.androiderestaurant.tool.RepasAdapter
 import org.json.JSONException
 import org.json.JSONObject
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class SelectionActivity : AppCompatActivity() {
@@ -40,8 +43,48 @@ class SelectionActivity : AppCompatActivity() {
 
         this.title = categoryName
 
-        this.recupererDataApi() //On va faire un appel sur l'api
+        this.recupererCache() //On va regarder s'il y a un cache
 
+
+    }
+
+    private fun recupererCache(){
+
+        val file = File(filesDir, "plats_cache")
+
+        if (file.exists()) {
+
+            val inputStream = FileInputStream(file)
+
+            val buffer = ByteArray(inputStream.available())
+            inputStream.read(buffer)
+
+            val jsonString = String(buffer)
+
+            val gson = Gson()
+
+            val platCache = gson.fromJson(jsonString, DataCache::class.java)
+
+            //verifier si le timestamp est supererieur à 5 minutes
+            //On obtient le timestamp d'il y a 5 minutes
+
+            val fiveMinutesAgo = Calendar.getInstance().apply { add(Calendar.MINUTE, -5) }.time
+
+            val difference = platCache.timestamp - fiveMinutesAgo.time
+
+            if (difference > 5 * 60 * 1000) { //Si la difference est superieure à 5 minutes
+
+                this.recupererDataApi() //On va faire un appel sur l'api
+            }
+
+            else {
+                this.creationListeDePlats(platCache.data.data) //Le cache est suffisament recent
+            }
+        }
+
+        else { //Le fichier de cache n'existe pas
+            this.recupererDataApi() //On va faire un appel sur l'api
+        }
 
     }
 
@@ -67,6 +110,8 @@ class SelectionActivity : AppCompatActivity() {
                 repas =  gson.fromJson(response.toString(), RepasRecupere::class.java)
                 println("repas : " + repas.data[0].name_fr)
 
+                this.enregistrerCache(repas) //enregistrement en cache
+
                 this.creationListeDePlats(repas.data)  //On va trier l'objet recu par l'api
 
 
@@ -76,6 +121,25 @@ class SelectionActivity : AppCompatActivity() {
 
 
 
+    }
+
+    private fun enregistrerCache(repas : RepasRecupere){ //Fonction pour enregistrer les donnees de l'api en cache
+
+        val file = File(filesDir, "plats_cache")
+
+        if (!file.exists()) { // Si le fichier n'existe pas, on le cree
+
+            file.createNewFile()
+        }
+
+        val gson = Gson()
+
+        val jsonCache = gson.toJson(DataCache(repas, Date().time)) //On cree un objet qui contient les donnees de l'api et le timestamp
+
+        val outputStream = FileOutputStream(file)
+        outputStream.write(jsonCache.toByteArray()) //enregistrement des plats en cache
+
+        outputStream.close()
     }
 
     private fun creationListeDePlats(repas : ArrayList<Repas>){
@@ -88,13 +152,8 @@ class SelectionActivity : AppCompatActivity() {
             }
         }
 
-        for(value in this.tabDataApi){
-
-            println("Nom " + value.nom + "categorie : " + value.categorie)
-        }
         //Une fois notre objet cree, on va initialiser les differentes liste selon le type de plat
         this.initialiserList()
-
 
     }
 
