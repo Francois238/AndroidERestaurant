@@ -27,8 +27,8 @@ class PlatActivity : AppCompatActivity() {
     private var quantite=1
     private var nbEnregistre=0
     private var  tableauPlatEnregistre = ListPlatEnregistre(ArrayList())
-    private val SHARED_PREF_USER_INFO = "SHARED_PREF_USER_INFO"
-    private val SHARED_PREF_USER_INFO_NAME = "QUANTITE"
+    private val preferenceNom = "SHARED_PREF_USER_INFO"
+    private val preferenceCle = "QUANTITE"
 
     private lateinit var plat : RepasAffiche
 
@@ -71,8 +71,8 @@ class PlatActivity : AppCompatActivity() {
 
         }
 
-        val nbEnregistrementsPreference = getSharedPreferences(SHARED_PREF_USER_INFO, MODE_PRIVATE).getString( //on recupere le nombre d'enregistrement dans les preferences
-            SHARED_PREF_USER_INFO_NAME,
+        val nbEnregistrementsPreference = getSharedPreferences(preferenceNom, MODE_PRIVATE).getString( //on recupere le nombre d'enregistrement dans les preferences
+            preferenceCle,
             null
         )
 
@@ -88,7 +88,7 @@ class PlatActivity : AppCompatActivity() {
 
 
 
-        val viewPager = findViewById<ViewPager>(R.id.viewpager)
+        val viewPager = findViewById<ViewPager>(R.id.carrousel)
 
         val mCarrouselAdapter = CarrouselAdapter(this, this.plat.images)
         viewPager.adapter = mCarrouselAdapter
@@ -159,9 +159,9 @@ class PlatActivity : AppCompatActivity() {
             outputStream.close()
 
 
-            getSharedPreferences(SHARED_PREF_USER_INFO, MODE_PRIVATE)
+            getSharedPreferences(preferenceNom, MODE_PRIVATE)
                 .edit()
-                .putString(SHARED_PREF_USER_INFO_NAME,this.nbEnregistre.toString() )
+                .putString(preferenceCle,this.nbEnregistre.toString() )
                 .apply()
             binding.nbEnregistrement.text =this.nbEnregistre.toString()
 
