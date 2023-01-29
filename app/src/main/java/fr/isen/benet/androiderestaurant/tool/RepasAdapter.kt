@@ -1,5 +1,6 @@
 package fr.isen.benet.androiderestaurant.tool
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,9 +27,9 @@ class RepasAdapter (private val listDish: List<RepasAffiche>) : RecyclerView.Ada
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val nomPlat: TextView = itemView.findViewById(R.id.nom_plat)
-        val imagePlat: ImageView = itemView.findViewById(R.id.icone_plat)
-        val prixPlat: TextView = itemView.findViewById(R.id.prix_plat)
+        val nomPlat: TextView = itemView.findViewById(R.id.nomPlat)
+        val imagePlat: ImageView = itemView.findViewById(R.id.iconePlat)
+        val prixPlat: TextView = itemView.findViewById(R.id.prixPlat)
 
 
         init {
@@ -55,6 +56,7 @@ class RepasAdapter (private val listDish: List<RepasAffiche>) : RecyclerView.Ada
     }
 
     // Involves populating data into the item through holder
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         // Get the data model based on position
         val dish: RepasAffiche = listDish[position]

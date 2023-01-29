@@ -1,5 +1,6 @@
 package fr.isen.benet.androiderestaurant.tool
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,11 +27,10 @@ class CommandeAdapter (private val listCommade: List<PlatEnregistre>) : Recycler
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val nomPlat: TextView = itemView.findViewById(R.id.nom_plat_commande)
-        val imagePlat: ImageView = itemView.findViewById(R.id.icone_plat_commande)
-        val prixPlat: TextView = itemView.findViewById(R.id.prix_plat_commande)
-        val quantitePlat: TextView = itemView.findViewById(R.id.quantite_plat_commande)
-        val imageSupprimer: ImageView = itemView.findViewById(R.id.icone_supprimer)
+        val nomPlat: TextView = itemView.findViewById(R.id.nomPlatCommande)
+        val imagePlat: ImageView = itemView.findViewById(R.id.iconePlatCommande)
+        val prixPlat: TextView = itemView.findViewById(R.id.prixPlatCommande)
+        val quantitePlat: TextView = itemView.findViewById(R.id.quantitePlatCommande)
 
 
         init {
@@ -57,6 +57,7 @@ class CommandeAdapter (private val listCommade: List<PlatEnregistre>) : Recycler
     }
 
     // Involves populating data into the item through holder
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         // Get the data model based on position
         val commande: PlatEnregistre = listCommade[position]

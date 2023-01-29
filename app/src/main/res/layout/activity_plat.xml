@@ -49,7 +49,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/nb_enregistrement"
+                android:id="@+id/nbEnregistrement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -85,7 +85,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/nom_plat_detail"
+        android:id="@+id/nomPlatDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -95,17 +95,17 @@
         app:layout_constraintTop_toBottomOf="@+id/viewpager" />
 
     <TextView
-        android:id="@+id/liste_ingredients"
+        android:id="@+id/listeIngredients"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="28dp"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nom_plat_detail" />
+        app:layout_constraintTop_toBottomOf="@+id/nomPlatDetail" />
 
     <Button
-        android:id="@+id/boutton_moins"
+        android:id="@+id/bouttonMoins"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="68dp"
@@ -113,7 +113,7 @@
         android:text="-"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/quantite"
-        app:layout_constraintTop_toBottomOf="@+id/liste_ingredients" />
+        app:layout_constraintTop_toBottomOf="@+id/listeIngredients" />
 
     <TextView
         android:id="@+id/quantite"
@@ -126,10 +126,10 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/liste_ingredients" />
+        app:layout_constraintTop_toBottomOf="@+id/listeIngredients" />
 
     <Button
-        android:id="@+id/boutton_plus"
+        android:id="@+id/bouttonPlus"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="40dp"
@@ -137,10 +137,10 @@
         android:text="+"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/quantite"
-        app:layout_constraintTop_toBottomOf="@+id/liste_ingredients" />
+        app:layout_constraintTop_toBottomOf="@+id/listeIngredients" />
 
     <Button
-        android:id="@+id/ajouter_panier"
+        android:id="@+id/ajouterPanier"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginTop="72dp"

@@ -43,7 +43,7 @@ class SelectionActivity : AppCompatActivity() {
 
         this.title = categoryName
 
-        this.recupererCache() //On va regarder s'il y a un cache
+        this.recupererCache() //On va regarder s'il y a du cache
 
 
     }
@@ -65,7 +65,7 @@ class SelectionActivity : AppCompatActivity() {
 
             val platCache = gson.fromJson(jsonString, DataCache::class.java)
 
-            //verifier si le timestamp est supererieur à 5 minutes
+            //verifier si le timestamp est superieur à 5 minutes
             //On obtient le timestamp d'il y a 5 minutes
 
             val fiveMinutesAgo = Calendar.getInstance().apply { add(Calendar.MINUTE, -5) }.time
